@@ -1,0 +1,67 @@
+*{
+    padding: 0;
+    margin:0;
+}
+.Calculator{
+    /* text-align: center; */
+    margin-top: 80px;
+    border: 2px solid black;
+    height: 650px;
+    width: 410px;
+    padding: 30px;
+    text-align: center;
+    background-color: gray;
+    margin-left: 45%;
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px 100px 100px;
+    border-radius: 20px;
+    grid-gap: 5px;
+  
+}
+.Calculator-Display{
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    border: 2px solid black;
+    width: 410px;
+    height:85px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-color: white;
+
+}
+#clear{
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background-color: rgb(216, 85, 122);
+    font-weight: bold;
+    font-size: 22px;
+}
+#delete{
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    background-color: rgb(61, 115, 201);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.clear-buttons > div{
+   display: flex;
+   
+}
+button{
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  
+}
