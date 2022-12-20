@@ -10,6 +10,7 @@ const equals = document.getElementById('=');
 const clear = document.getElementById('clear');
 let operands = [];
 let operators = [];
+let pressedEqual = false;
 
 const add = (a,b) => {
     return a + b;
@@ -38,42 +39,48 @@ const operate = (operator,num1,num2) => {
 }
 }
 function evaluate(expression){
-    const stack = [];
+    let stack = [];
 
   for (let token of expression.split(' ')) {
 
-    let countOfOperandsInStack = stack.reduce((acc, val) => {
+    let countOfOperandsInStack = stack.reduce((acc, val) => { // count number of operandss
         if (isNumber(val)) {
           acc++;
         }
         return acc;
       }, 0);
-      console.log(countOfOperandsInStack);
-      if(!isNumber(token)){
+    
+      if(!isNumber(token) && countOfOperandsInStack == 0){
         stack.push(token);
       }
-      if(isNumber(token) && countOfOperandsInStack == 0){
+      if(isNumber(token) && countOfOperandsInStack == 0){ // the first number the user enters
         stack.push(token);
       }
-     else if(isNumber(token) && countOfOperandsInStack == 1){
+     else if(isNumber(token) && countOfOperandsInStack == 1){// second number in the system
         token = Number(token);
         const operator = stack.pop();
         const operand1 = stack.pop();
         stack.push(operate(operator, Number(operand1), token));
-        return stack.pop();
+        stack = [stack.pop()];
       }
-
-  
+      else if(!isNumber(token) && countOfOperandsInStack == 1){     // there is already a number in the system and there is another operation now.
+        stack.push(token);
+       
 }
+
 console.log(stack);
-
 }
-
+return stack[0];
+}
 // have an operand stack and an operator 
 // as the user inputs something, add to the respective stack. Like 5 + 3 * 2(which should equal 11). operand stack = [5,3,2]. operator stack = [+]
 // when the user hits equal
 numbers_btns.forEach(element => {
         element.addEventListener('click',() =>{
+         if(pressedEqual){
+            clearCalculator();
+            pressedEqual = false;
+         }
         let value = element.value;
         operands.push(value);
         number_display.textContent = number_display.textContent+ value + ' ';
@@ -93,6 +100,7 @@ operator_btns.forEach(element => {
 // have an ooperands stack and a operattors 
 // when the user presses  =, then
 equals.addEventListener('click',()=>{
+    pressedEqual = true;
    let finalResult = evaluate(number_display.textContent);
    number_display.textContent = finalResult;
     }
