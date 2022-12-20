@@ -40,32 +40,32 @@ const operate = (operator,num1,num2) => {
 function evaluate(expression){
     const stack = [];
 
-  for (let token of expression) {
-    console.log(token);
+  for (let token of expression.split(' ')) {
+
     let countOfOperandsInStack = stack.reduce((acc, val) => {
-        if (typeof val === 'number') {
+        if (isNumber(val)) {
           acc++;
         }
         return acc;
       }, 0);
+      console.log(countOfOperandsInStack);
       if(!isNumber(token)){
         stack.push(token);
       }
-    if (isNumber(token) || countOfOperandsInStack == 1) { // if token is an operand and there is only 1 operand in the stack [1+2]
-      token = Number(token);
-      const operator = stack.pop();
-      const operand1 = stack.pop();
-      stack.push(operate(operator, operand1, token));
-      return stack.pop();
-    } 
-    // else if(isNumber(token) || countOfOperandsInStack == 0) { // if token is operator and there are2 operands already
-    //   stack.push(Number(token));
-    // };
-    // else if(!isNumber(token)){
-    //     stack.push(token);
-    // }
+      if(isNumber(token) && countOfOperandsInStack == 0){
+        stack.push(token);
+      }
+     else if(isNumber(token) && countOfOperandsInStack == 1){
+        token = Number(token);
+        const operator = stack.pop();
+        const operand1 = stack.pop();
+        stack.push(operate(operator, Number(operand1), token));
+        return stack.pop();
+      }
+
   
 }
+console.log(stack);
 
 }
 
@@ -76,7 +76,7 @@ numbers_btns.forEach(element => {
         element.addEventListener('click',() =>{
         let value = element.value;
         operands.push(value);
-        number_display.textContent+=value;
+        number_display.textContent = number_display.textContent+ value + ' ';
         
     })
 });
@@ -85,7 +85,7 @@ operator_btns.forEach(element => {
         if(number_display.textContent == ''){
 
         }
-        number_display.textContent += element.value;
+        number_display.textContent = number_display.textContent+ element.value + ' ';
         
     })
 });
@@ -93,26 +93,8 @@ operator_btns.forEach(element => {
 // have an ooperands stack and a operattors 
 // when the user presses  =, then
 equals.addEventListener('click',()=>{
-    // const input = number_display.textContent;
-    // console.log(input);
-    // const input_split = input.split(expr);
-    // let user_input = input_split.map(str => str.trim());
-   
-    // for( const oper of user_input){
-    //     if(oper =='+' || oper == '-' || oper == '*' || oper == '/'){
-    //         operators.push(oper);
-    //     }
-    //     else{
-    //         operands.push(Number(oper));
-    //     }
-
-    //     } 
-    // res = operate(operators.pop(),operands[0],operands[1]);
-    // number_display.textContent = res;
-    // operands = [res];
-    // operators = [];
-    // user_input = [];
-    // console.log(res);
+   let finalResult = evaluate(number_display.textContent);
+   number_display.textContent = finalResult;
     }
     );
     clear.addEventListener('click',() => {
