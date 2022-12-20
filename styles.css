@@ -17,7 +17,6 @@
     grid-template-rows: 100px 100px 100px 100px 100px 100px;
     border-radius: 20px;
     grid-gap: 5px;
-  
 }
 .Calculator-Display{
     grid-row-start: 1;
@@ -30,7 +29,14 @@
     margin-bottom: 5px;
     border-radius: 10px;
     background-color: white;
-
+    position:relative;
+}
+.user-input{
+    position: absolute;
+    bottom:0;
+    right:0;
+    font-size: 40px;
+    font-weight: bold;
 }
 #clear{
     grid-row-start: 2;
@@ -50,7 +56,6 @@
     font-weight: bold;
     font-size: 22px;
 }
-
 .clear-buttons > div{
    display: flex;
    
@@ -60,8 +65,7 @@ button{
   background-color: white;
   color: black;
   padding: 10px;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
   border-radius: 10px;
-  
 }
