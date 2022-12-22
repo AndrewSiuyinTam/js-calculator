@@ -8,6 +8,7 @@ const expr = new RegExp("(?<=[-+*/])|(?=[-+*/])")
 let res =  0;
 const equals = document.getElementById('=');
 const clear = document.getElementById('clear');
+const delete_btn = document.getElementById('delete');
 let operands = [];
 let operators = [];
 let pressedEqual = false;
@@ -38,10 +39,13 @@ const operate = (operator,num1,num2) => {
         return divide(num1,num2);
 }
 }
+// 8 * 6 - 3 WORKS
+// 8 + 6 - 3 WORKS
+// 8 - 6 - 3 WORKS
 function evaluate(expression){
     let stack = [];
 
-  for (let token of expression.split(' ')) {
+  for (let token of expression.split(/(\d+)/)) {
 
     let countOfOperandsInStack = stack.reduce((acc, val) => { // count number of operandss
         if (isNumber(val)) {
@@ -83,7 +87,7 @@ numbers_btns.forEach(element => {
          }
         let value = element.value;
         operands.push(value);
-        number_display.textContent = number_display.textContent+ value + ' ';
+        number_display.textContent = number_display.textContent+ value;
         
     })
 });
@@ -92,7 +96,7 @@ operator_btns.forEach(element => {
         if(number_display.textContent == ''){
 
         }
-        number_display.textContent = number_display.textContent+ element.value + ' ';
+        number_display.textContent = number_display.textContent+ element.value;
         
     })
 });
@@ -108,6 +112,11 @@ equals.addEventListener('click',()=>{
     clear.addEventListener('click',() => {
         clearCalculator()
     });
+    delete_btn.addEventListener('click',() => {
+        let newStr = number_display.textContent;
+        let newStrSub = newStr.substring(0,newStr.length-1);
+        number_display.textContent = newStrSub;
+    })
     function clearCalculator(){
         res = 0
         number_display.textContent = '';
@@ -117,6 +126,7 @@ equals.addEventListener('click',()=>{
     function isNumber(token) {
         return !isNaN(parseInt(token, 10));
       }
+
       
 
     // do work on the stack
