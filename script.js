@@ -106,7 +106,15 @@ operator_btns.forEach(element => {
 equals.addEventListener('click',()=>{
     pressedEqual = true;
    let finalResult = evaluate(number_display.textContent);
-   number_display.textContent = finalResult;
+   if(finalResult == 'Infinity'){
+    number_display.textContent = 'ERROR! Cannot divide by ZERO!';
+   
+   }
+   else{
+    number_display.textContent = finalResult.toFixed(4);
+
+   }
+
     }
     );
     clear.addEventListener('click',() => {
